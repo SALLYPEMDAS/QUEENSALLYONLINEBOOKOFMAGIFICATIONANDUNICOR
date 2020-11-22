@@ -62,10 +62,10 @@ TLD
 
 btw hi we love y'all
 
-enthusiasticall anticipating exciting interactions events situations possibilities 
+enthusiastically anticipating exciting interactions events situations possibilities 
 
 if we might assist in any processies please pingerdooie SALLYPEMDAS@gmail.com and it will be checked eventually (maybe :D)
 
 VARNINX: magix possibilitiex may strong warrior be ready
 
-DISPAIR VANY DOUBTGZX: https://youtu.be/pY7hFRg2jvw
+DISPAIR VANY DOUBTX: https://youtu.be/pY7hFRg2jvw
