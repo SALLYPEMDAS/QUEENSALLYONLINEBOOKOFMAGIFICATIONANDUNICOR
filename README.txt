@@ -50,6 +50,8 @@ aka ralph
 
 aka ralph's book
 
+or RALPHX
+
 TLD
   ®:
     https://youtu.be/l5d67j3CAWE ALSO INCLUDING https://youtu.be/IHUvALTEDJQ
