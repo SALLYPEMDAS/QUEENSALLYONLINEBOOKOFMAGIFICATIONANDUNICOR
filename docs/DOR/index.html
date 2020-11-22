@@ -1,0 +1,16 @@
+<script>
+
+var url = 'your_url_here';
+$.ajax({
+    url: url,
+    error: function(response){
+        if(response.status==401){           
+            $('<iframe src="'+url+'"></iframe>').appendTo('body');          
+        }
+    },
+    success:function(){
+        //your success code here
+    }
+});
+
+</script>
