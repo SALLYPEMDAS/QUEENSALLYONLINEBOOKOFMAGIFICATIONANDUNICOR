@@ -14,6 +14,8 @@ DUN
   ICO
     ®
 
+aka the queen sally online book of magification
+
 aka the queen sally online book of magiciaction
 
 or the mag book
@@ -55,3 +57,15 @@ or RALPHX
 TLD
   ®:
     https://youtu.be/l5d67j3CAWE ALSO INCLUDING https://youtu.be/IHUvALTEDJQ
+
+---
+
+btw hi we love y'all
+
+enthusiasticall anticipating exciting interactions events situations possibilities 
+
+if we might assist in any processies please pingerdooie SALLYPEMDAS@gmail.com and it will be checked eventually (maybe :D)
+
+VARNINX: magix possibilitiex may strong warrior be ready
+
+DISPAIR VANY DOUBTGZX: https://youtu.be/pY7hFRg2jvw
