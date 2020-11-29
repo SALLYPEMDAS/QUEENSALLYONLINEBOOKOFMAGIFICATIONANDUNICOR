@@ -3,11 +3,9 @@ import sys
 import requests
 from tqdm import tqdm
 
-if len(sys.argv) != 2:
-    print('You must enter the model name as a parameter, e.g.: download_model.py 124M')
-    sys.exit(1)
-
-model = sys.argv[1]
+model = "124M"
+if len(sys.argv) == 2:
+    model = sys.argv[1] 
 
 subdir = os.path.join('models', model)
 if not os.path.exists(subdir):
