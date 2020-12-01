@@ -543,6 +543,13 @@ def interact_model(
             temperature=temperature, top_k=top_k, top_p=top_p
         )
 
+        output3 = sample.sample_sequence(
+            hparams=hparams, length=length,
+            context=context,
+            batch_size=batch_size,
+            temperature=temperature, top_k=top_k, top_p=top_p
+        )
+
         saver = tf.train.Saver()
         ckpt = tf.train.latest_checkpoint(os.path.join(models_dir, model_name))
         saver.restore(sess, ckpt)
@@ -562,6 +569,38 @@ def interact_model(
             raw_text = input("> ")
             while not raw_text:
                 raw_text = input("> ")
+            context_tokens = enc.encode(raw_text)
+            generated = 0
+            o.write("-----\n" + raw_text + "\n-----\n\n")
+
+            for _ in range(nsamples // batch_size):
+                out = sess.run(output, feed_dict={
+                    context: [context_tokens for _ in range(batch_size)]
+                })[:, len(context_tokens):]
+                generated2 = 0
+                for i in range(batch_size):
+                    generated += 1
+                    text = enc.decode(out[i])
+                    context_tokens2 = enc.encode(text)
+                    o.write(raw_text + " " + text + "\n----")
+
+                    print(raw_text + " " + text + "\n----")
+
+                    for _ in range(nsamples // batch_size): 
+                        out2 = sess.run(output2, feed_dict={
+                            context: [context_tokens2 for _ in range(batch_size)]
+                        })[:, len(context_tokens2):]
+                        for j in range(batch_size):
+                            generated2 += 1
+
+                            text2 = enc.decode(out2[i])
+
+                            o.write(text + " " + text2 + "\n\n")
+                            o.write("---\n\n")
+                            o.flush()
+            o.write("-------\n\n\n\n")
+            o.flush()
+
             raw_text = U2V(squished(raw_text))
             context_tokens = enc.encode(raw_text)
             generated = 0
@@ -576,6 +615,8 @@ def interact_model(
                     generated += 1
                     text = enc.decode(out[i])
                     context_tokens2 = enc.encode(text)
+                    o.write(raw_text + " " + text + "\n----")
+
                     print(raw_text + " " + text + "\n----")
 
                     for _ in range(nsamples // batch_size): 
@@ -609,6 +650,7 @@ def interact_model(
                     text = enc.decode(out[i])
                     context_tokens2 = enc.encode(text)
                     print(raw_text + " " + text + "\n----")
+                    o.write(raw_text + " " + text + "\n----")
 
                     for _ in range(nsamples // batch_size): 
                         out2 = sess.run(output2, feed_dict={
