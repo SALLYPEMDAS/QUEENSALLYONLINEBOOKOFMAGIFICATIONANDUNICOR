@@ -139,6 +139,7 @@ MTRXTWER('                    - WHO ELSE SEEN THE LEPRECHAUN?SAY "YEAH"!')
 print("test")
 
 
+
 # In[22]:
 
 
@@ -460,6 +461,41 @@ print(gVVVy)
 
 print(trxtwrstr(trxtwr("dinosaur", 3)))
 
+magicVVVLookup = {
+    "A": "20 07",
+    "B": "10 17",
+    "C": "00 27",
+    "D": "21 06",
+    "E": "11 16",
+    "F": "01 26",
+    "G": "22 05",
+    "H": "12 15",
+    "I": "02 25",
+    "J": "23 04",
+    "K": "13 14",
+    "L": "03 24",
+    "M": "24 03",
+    "N": "14 13",
+    "O": "04 23",
+    "P": "25 02",
+    "Q": "15 12",
+    "R": "05 22",
+    "S": "26 01",
+    "T": "16 11",
+    "V": "06 21",
+    "X": "27 00",
+    "Y": "17 10",
+    "Z": "07 20"
+}
+def magicVVVDecTower(twr):
+    ret = []
+    for level in twr:
+        ourLevel = []
+        for char in level:
+            ourLevel.append(magicVVVLookup[char])
+        ret.append(ourLevel)
+    return ret
+
 
 
 def fortminute(oldtime = datetime.utcnow().__format__('%Y%m%d%H%M%S')):
@@ -634,11 +670,48 @@ def interact_model(
             o.write("-------\n\n\n\n")
             o.flush()
             
+            twr = trxtwr(raw_text, 3)
+            twrstr = trxtwrstr(trxtwr(raw_text, 3))
+            raw_text = twrstr
             context_tokens = enc.encode(raw_text)
             generated = 0
             o.write("-----\n" + raw_text + "\n-----\n\n")
 
-            raw_text = trxtwrstr(trxtwr(raw_text, 3))
+            for _ in range(nsamples // batch_size):
+                out = sess.run(output, feed_dict={
+                    context: [context_tokens for _ in range(batch_size)]
+                })[:, len(context_tokens):]
+                generated2 = 0
+                for i in range(batch_size):
+                    generated += 1
+                    text = enc.decode(out[i])
+                    context_tokens2 = enc.encode(text)
+                    print(raw_text + " " + text + "\n----")
+                    o.write(raw_text + " " + text + "\n----")
+
+                    for _ in range(nsamples // batch_size): 
+                        out2 = sess.run(output2, feed_dict={
+                            context: [context_tokens2 for _ in range(batch_size)]
+                        })[:, len(context_tokens2):]
+                        for j in range(batch_size):
+                            generated2 += 1
+
+                            text2 = enc.decode(out2[i])
+
+                            o.write(text + " " + text2 + "\n\n")
+                            o.write("---\n\n")
+                            o.flush()
+            
+            twr = trxtwr(raw_text, 3)
+            twrstr = trxtwrstr(trxtwr(raw_text, 3))
+
+            mtwr = magicVVVDecTower(twr)
+            mtwrstr = trxtwrstr(mtwr)
+            raw_text = twrstr + "\n" + mtwrstr
+            context_tokens = enc.encode(raw_text)
+            generated = 0
+            o.write("-----\n" + raw_text + "\n-----\n\n")
+
 
             for _ in range(nsamples // batch_size):
                 out = sess.run(output, feed_dict={
