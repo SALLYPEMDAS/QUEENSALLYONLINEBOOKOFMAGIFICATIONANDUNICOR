@@ -492,7 +492,7 @@ def magicVVVDecTower(twr):
     for level in twr:
         ourLevel = []
         for char in level:
-            ourLevel.append(magicVVVLookup[char])
+            ourLevel.append(magicVVVLookup[char] + " ")
         ret.append(ourLevel)
     return ret
 
@@ -516,7 +516,7 @@ def _seed(time = datetime.utcnow().__format__('%Y%m%d%H%M%S')):
 
 def interact_model(
     model_name='124M',
-    seed=int(_seed()),
+    seed=int(_seed()[:-2]),
     nsamples=8,
     batch_size=1,
     length=None,
@@ -593,10 +593,7 @@ def interact_model(
  #       print('seed: ' + str(seed))
  #       
 
-        filename = str(seed) + str(calendar.timegm(time.gmtime())) + ".txt"
-      
-        o = open("../TXT/TXZ/GEN/" + filename, 'w')
-        
+       
         k = 0
         i = 0
         count = 0
@@ -605,6 +602,10 @@ def interact_model(
             raw_text = input("> ")
             while not raw_text:
                 raw_text = input("> ")
+            filename = str(seed) + str(calendar.timegm(time.gmtime())) + ".txt"
+      
+            o = open("../TXT/TXZ/GEN/" + filename, 'w')
+        
             context_tokens = enc.encode(raw_text)
             generated = 0
             o.write("-----\n" + raw_text + "\n-----\n\n")
@@ -638,6 +639,7 @@ def interact_model(
             o.flush()
 
             raw_text = U2V(squished(raw_text))
+            raw_text_squished = raw_text
             context_tokens = enc.encode(raw_text)
             generated = 0
             o.write("-----\n" + raw_text + "\n-----\n\n")
@@ -702,12 +704,20 @@ def interact_model(
                             o.write("---\n\n")
                             o.flush()
             
-            twr = trxtwr(raw_text, 3)
+            twr = trxtwr(raw_text_squished, 3)
             twrstr = trxtwrstr(trxtwr(raw_text, 3))
 
             mtwr = magicVVVDecTower(twr)
             mtwrstr = trxtwrstr(mtwr)
-            raw_text = twrstr + "\n" + mtwrstr
+            
+            newTwr = []
+            
+            i = 0
+            for level in mtwr:
+                newLvl = level + twr[i]
+                i = i + 1
+                newTwr.append(newLvl)
+            raw_text = trxtwrstr(newTwr)
             context_tokens = enc.encode(raw_text)
             generated = 0
             o.write("-----\n" + raw_text + "\n-----\n\n")
@@ -739,6 +749,7 @@ def interact_model(
                             o.flush()
             o.write("-------\n\n\n\n")
             o.flush()
+            o.close()
             
             
             print("done")
@@ -755,7 +766,7 @@ def interact_model(
 #                for i in range(batch_size):
 
 
-        o.close()
+
 
 
 
