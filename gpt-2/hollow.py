@@ -485,7 +485,8 @@ magicVVVLookup = {
     "V": "06 21",
     "X": "27 00",
     "Y": "17 10",
-    "Z": "07 20"
+    "Z": "07 20",
+    "\n": ""
 }
 def magicVVVDecTower(twr):
     ret = []
@@ -617,7 +618,6 @@ def interact_model(
                 o.write("\n-----\n" + raw_text + "\n-----\n\n")
                 print("\n-----\n" + raw_text + "\n-----\n\n")
 
-
                 for _ in range(nsamples // batch_size):
                     out = sess.run(output, feed_dict={
                         context: [context_tokens for _ in range(batch_size)]
@@ -657,7 +657,6 @@ def interact_model(
                 o.write("-----\n" + raw_text + "\n-----\n\n")
                 print("-----\n" + raw_text + "\n-----\n\n")
                 
-
                 for _ in range(nsamples // batch_size):
                     out = sess.run(output, feed_dict={
                         context: [context_tokens for _ in range(batch_size)]
@@ -697,7 +696,6 @@ def interact_model(
                 generated = 0
                 o.write("-----\n" + raw_text + "\n-----\n\n")
                 print("-----\n" + raw_text + "\n-----\n\n")
-
 
                 for _ in range(nsamples // batch_size):
                     out = sess.run(output, feed_dict={
@@ -745,7 +743,6 @@ def interact_model(
                 generated = 0
                 o.write("\n-----\n" + raw_text + "\n-----\n\n")
                 print("\n-----\n" + raw_text + "\n-----\n\n")
-
 
                 for _ in range(nsamples // batch_size):
                     out = sess.run(output, feed_dict={
